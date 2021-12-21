@@ -5,13 +5,13 @@
   "success_url": "/",
   "env": {
     "TWILIO_ACCOUNT_SID": {
-      "description": "Your Twilio Account Id"
+      "description": "AC52873427123d39917e51227e318e0106"
     },
     "TWILIO_AUTH_TOKEN": {
-      "description": "Your Twilio Account Token"
+      "description": "07ff2b7a945809225c7f9110d045b6ad"
     },
     "TWILIO_NUMBER": {
-      "description": "The number used by the aplication"
+      "description": "+14155238886"
     }
   }
 }

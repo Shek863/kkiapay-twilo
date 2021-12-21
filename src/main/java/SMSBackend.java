@@ -1,9 +1,6 @@
-import com.twilio.http.TwilioRestClient;
+import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.rest.api.v2010.account.MessageCreator;
-import com.twilio.type.PhoneNumber;
 import spark.Spark;
-
 import static spark.Spark.get;
 import static spark.Spark.post;
 
@@ -20,20 +17,19 @@ public class SMSBackend {
         }
         Spark.port(port);
 
+        get("/home", (req, res) -> "Hello, World");
 
-        get("/", (req, res) -> "Hello, World");
-
-        TwilioRestClient client = new TwilioRestClient.Builder(System.getenv("TWILIO_ACCOUNT_SID"), System.getenv("TWILIO_AUTH_TOKEN")).build();
-
+        Twilio.init("AC52873427123d39917e51227e318e0106","07ff2b7a945809225c7f9110d045b6ad");
         post("/sms", (req, res) -> {
             String body = req.queryParams("Body");
-            String to = req.queryParams("To");
-            String from = System.getenv("TWILIO_NUMBER");
+            String to = "whatsapp:"+req.queryParams("To");
+            String from = "whatsapp:+14155238886";
 
-            Message message = new MessageCreator(
-                    new PhoneNumber(to),
-                    new PhoneNumber(from),
-                    body).create(client);
+            Message message = Message.creator(
+                            new com.twilio.type.PhoneNumber(to),
+                            new com.twilio.type.PhoneNumber(from),
+                            body)
+                    .create();
 
             return message.getSid();
         });
